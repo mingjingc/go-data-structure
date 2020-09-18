@@ -1,0 +1,1 @@
+Golang implements data structure
