@@ -1,4 +1,4 @@
-package radixtree
+package tree
 
 type node struct {
 	path     string
@@ -13,32 +13,32 @@ func NewRadixTree() (n *node) {
 }
 
 func (n *node) Add(word string) {
-	if len(word)==0{
+	if len(word) == 0 {
 		return
 	}
 
 	currentNode := n
 	prefixNode := currentNode.findPrefixNode(word[0])
-	if prefixNode != nil{
+	if prefixNode != nil {
 		currentNode = prefixNode
 	}
 
-	walk:
+walk:
 	for {
 
-		lcp := lengthCommonPrefix(word,currentNode.path)
+		lcp := lengthCommonPrefix(word, currentNode.path)
 
 		// currentNode is root
-		if lcp==0 {
+		if lcp == 0 {
 			child := &node{
-				path:     word,
-				isWord:   true,
+				path:   word,
+				isWord: true,
 			}
 			currentNode.children = append(n.children, child)
 			return
 		}
 
-		if lcp<len(currentNode.path){
+		if lcp < len(currentNode.path) {
 			child := &node{
 				path:     currentNode.path[lcp:],
 				children: currentNode.children,
@@ -48,20 +48,20 @@ func (n *node) Add(word string) {
 			currentNode.children = []*node{child}
 		}
 
-		if lcp<len(word) {
+		if lcp < len(word) {
 			word = word[lcp:]
 			prefixNode = currentNode.findPrefixNode(word[0])
-			if prefixNode!=nil{
+			if prefixNode != nil {
 				currentNode = prefixNode
 				continue walk
 			}
-			child:= &node{
-				path:     word,
-				isWord:   true,
+			child := &node{
+				path:   word,
+				isWord: true,
 			}
-			currentNode.children = append(currentNode.children,child)
+			currentNode.children = append(currentNode.children, child)
 			return
-		} else  {
+		} else {
 			currentNode.isWord = true
 			return
 		}
@@ -69,27 +69,27 @@ func (n *node) Add(word string) {
 }
 
 func (n *node) Delete(word string) {
-	if len(word)==0{
+	if len(word) == 0 {
 		return
 	}
 
 	currentNode := n
-	walk:
+walk:
 	for {
-		for i:=0;i<len(currentNode.children);i++{
-			prefixEndI := prefixEndPosition(word,currentNode.children[i].path)
-			if prefixEndI>0 {
+		for i := 0; i < len(currentNode.children); i++ {
+			prefixEndI := prefixEndPosition(word, currentNode.children[i].path)
+			if prefixEndI > 0 {
 				if prefixEndI == len(word) {
 					if !currentNode.children[i].isWord {
 						return
 					}
 
-					if len(currentNode.children[i].children)>0{
+					if len(currentNode.children[i].children) > 0 {
 						currentNode.children[i].isWord = false
 						return
 					}
 
-					copy(currentNode.children[i:],currentNode.children[i+1:])
+					copy(currentNode.children[i:], currentNode.children[i+1:])
 					currentNode.children = currentNode.children[:len(currentNode.children)-1]
 					return
 				}
@@ -103,19 +103,19 @@ func (n *node) Delete(word string) {
 }
 
 func (n *node) Search(word string) (found bool) {
-	if len(word)==0{
+	if len(word) == 0 {
 		found = true
 		return
 	}
 
 	currentNode := n
-	walk:
+walk:
 	for {
-		for i:=0; i<len(currentNode.children); i++{
-			prefixEndI := prefixEndPosition(word,currentNode.children[i].path)
-			if prefixEndI>0{
+		for i := 0; i < len(currentNode.children); i++ {
+			prefixEndI := prefixEndPosition(word, currentNode.children[i].path)
+			if prefixEndI > 0 {
 				if prefixEndI == len(word) {
-					found =  currentNode.children[i].isWord
+					found = currentNode.children[i].isWord
 					return
 				}
 				word = word[prefixEndI:]
@@ -129,30 +129,30 @@ func (n *node) Search(word string) (found bool) {
 }
 
 func (n *node) findPrefixNode(startByte byte) *node {
-	for i:=0;i<len(n.children);i++{
-		if n.children[i].path[0]== startByte{
+	for i := 0; i < len(n.children); i++ {
+		if n.children[i].path[0] == startByte {
 			return n.children[i]
 		}
 	}
 	return nil
 }
 
-func lengthCommonPrefix(s1,s2 string) int {
-	max := min(len(s1),len(s2))
-	i:=0
-	for i<max && s1[i]==s2[i] {
+func lengthCommonPrefix(s1, s2 string) int {
+	max := min(len(s1), len(s2))
+	i := 0
+	for i < max && s1[i] == s2[i] {
 		i++
 	}
 	return i
 }
 
-func prefixEndPosition(s,prefix string)  int {
-	i:=0
-	for ;i<len(prefix);i++{
-		if i>=len(s) {
+func prefixEndPosition(s, prefix string) int {
+	i := 0
+	for ; i < len(prefix); i++ {
+		if i >= len(s) {
 			return -1
 		}
-		if s[i]!=prefix[i]{
+		if s[i] != prefix[i] {
 			return -1
 		}
 	}
