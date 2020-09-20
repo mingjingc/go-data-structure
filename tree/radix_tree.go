@@ -150,11 +150,14 @@ func prefixEndPosition(s, prefix string) int {
 	i := 0
 	for ; i < len(prefix); i++ {
 		if i >= len(s) {
-			return -1
+			return 0
 		}
 		if s[i] != prefix[i] {
-			return -1
+			return 0
 		}
+	}
+	if i == 0 {
+		return -1
 	}
 	return i
 }

@@ -3,7 +3,7 @@ package list
 type DoubleLinkedListNode struct {
 	pre   *DoubleLinkedListNode
 	next  *DoubleLinkedListNode
-	value interface{}
+	Value interface{}
 }
 
 type DoubleLinkedList struct {
@@ -43,7 +43,7 @@ func (i *DoubleLinkedListIterator) HasNext() bool {
 }
 
 func (i *DoubleLinkedListIterator) Next() interface{} {
-	value := i.next.value
+	value := i.next.Value
 	if i.startFromTail {
 		i.next = i.next.pre
 		return value
@@ -63,7 +63,7 @@ func (l *DoubleLinkedList) AddNodeHead(value interface{}) {
 	node := &DoubleLinkedListNode{
 		pre:   nil,
 		next:  nil,
-		value: value,
+		Value: value,
 	}
 	if l.head == nil {
 		l.head = node
@@ -81,7 +81,7 @@ func (l *DoubleLinkedList) AddNodeTail(value interface{}) {
 	node := &DoubleLinkedListNode{
 		pre:   nil,
 		next:  nil,
-		value: value,
+		Value: value,
 	}
 	if l.head == nil {
 		l.head = node
@@ -99,7 +99,7 @@ func (l *DoubleLinkedList) InsertNode(oldNode *DoubleLinkedListNode, value inter
 	node := &DoubleLinkedListNode{
 		pre:   nil,
 		next:  nil,
-		value: value,
+		Value: value,
 	}
 	if after {
 		node.next = oldNode.next
@@ -123,6 +123,23 @@ func (l *DoubleLinkedList) InsertNode(oldNode *DoubleLinkedListNode, value inter
 		}
 	}
 	l.len++
+}
+
+func (l *DoubleLinkedList) MoveToHead(node *DoubleLinkedListNode) {
+	if node == l.head {
+		return
+	}
+	node.pre.next = node.next
+	if node.next != nil {
+		node.next.pre = node.pre
+	} else {
+		l.tail = node.pre
+	}
+
+	node.pre = nil
+	node.next = l.head
+	l.head.pre = node
+	l.head = node
 }
 
 func (l *DoubleLinkedList) DeleteNode(node *DoubleLinkedListNode) {
@@ -174,6 +191,18 @@ func (l *DoubleLinkedList) Index(index int) *DoubleLinkedListNode {
 	return node
 }
 
+func (l *DoubleLinkedList) GetHead() *DoubleLinkedListNode {
+	return l.Index(0)
+}
+
+func (l *DoubleLinkedList) GetTail() *DoubleLinkedListNode {
+	return l.Index(-1)
+}
+
+func (l *DoubleLinkedList) GetLen() int {
+	return l.len
+}
+
 // 旋转一个单位
 func (l *DoubleLinkedList) Rotate() {
 	if l.len < 2 {
@@ -206,7 +235,7 @@ func (l *DoubleLinkedList) Duplicate() *DoubleLinkedList {
 
 	p := l.head
 	for p != nil {
-		copy.AddNodeTail(p.value)
+		copy.AddNodeTail(p.Value)
 		p = p.next
 	}
 	return copy

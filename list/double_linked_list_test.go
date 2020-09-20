@@ -20,7 +20,7 @@ func TestDoubleLinkedList(t *testing.T) {
 	for iterator.HasNext() {
 		value := iterator.Next()
 		if value != initData[i] {
-			t.Errorf("iterator value expect %d, but got %d", initData[i], value)
+			t.Errorf("iterator Value expect %d, but got %d", initData[i], value)
 		}
 		i++
 	}
@@ -29,26 +29,26 @@ func TestDoubleLinkedList(t *testing.T) {
 	if node != l.head {
 		t.Error("index 0 should place head")
 	}
-	if node.value != initData[0] {
-		t.Errorf("value of head should be %d", node.value)
+	if node.Value != initData[0] {
+		t.Errorf("Value of head should be %d", node.Value)
 	}
 
 	node = l.Index(-1)
 	if node != l.tail {
 		t.Error("index -1 should place tail")
 	}
-	if node.value != initData[len(initData)-1] {
-		t.Errorf("value of tail should be %d", initData[len(initData)-1])
+	if node.Value != initData[len(initData)-1] {
+		t.Errorf("Value of tail should be %d", initData[len(initData)-1])
 	}
 
 	l.AddNodeTail(5)
 	length++
 	node = l.Index(-1)
-	if node.value != 5 {
-		t.Errorf("value expect %d, but got %d", 5, node.value)
+	if node.Value != 5 {
+		t.Errorf("Value expect %d, but got %d", 5, node.Value)
 	}
 	if node != l.tail {
-		t.Errorf("tail should update new node, value: %d", 5)
+		t.Errorf("tail should update new node, Value: %d", 5)
 	}
 	if l.len != length {
 		t.Errorf("length expect %d, but got %d", length, l.len)
@@ -57,19 +57,19 @@ func TestDoubleLinkedList(t *testing.T) {
 	l.AddNodeHead(6)
 	length++
 	node = l.Index(0)
-	if node.value != 6 {
-		t.Errorf("value expect %d, but got %d", 6, node.value)
+	if node.Value != 6 {
+		t.Errorf("Value expect %d, but got %d", 6, node.Value)
 	}
 	if node != l.head {
-		t.Errorf("head should update to new node, value %d", 6)
+		t.Errorf("head should update to new node, Value %d", 6)
 	}
 	if l.len != length {
 		t.Errorf("length expect %d, but got %d", length, l.len)
 	}
 
 	node = l.Index(-4)
-	if node.value != 2 {
-		t.Errorf("index %d, value expect %d, but got %d", -4, 2, node.value)
+	if node.Value != 2 {
+		t.Errorf("index %d, Value expect %d, but got %d", -4, 2, node.Value)
 	}
 
 	l.DeleteNode(node)
@@ -78,8 +78,8 @@ func TestDoubleLinkedList(t *testing.T) {
 		t.Errorf("after delete a element, length expect %d, but got %d", length, l.len)
 	}
 	node = l.Index(-4)
-	if node.value != 1 {
-		t.Errorf("after delete %d node, index %d, value expect %d, but got %d", -4, -4, 1, node.value)
+	if node.Value != 1 {
+		t.Errorf("after delete %d node, index %d, Value expect %d, but got %d", -4, -4, 1, node.Value)
 	}
 
 	node = l.tail
@@ -94,7 +94,7 @@ func TestDoubleLinkedList(t *testing.T) {
 	}
 	p1, p2 := l.head, copy.head
 	for p1 != nil {
-		if p1.value != p2.value {
+		if p1.Value != p2.Value {
 			t.Error("copy fail")
 		}
 		p1 = p1.next
