@@ -12,12 +12,44 @@ type DoubleLinkedList struct {
 	len  int
 }
 
+type DoubleLinkedListIterator struct {
+	next          *DoubleLinkedListNode
+	startFromTail bool
+}
+
 func NewDoubleLinkedList() *DoubleLinkedList {
 	return &DoubleLinkedList{
 		head: nil,
 		tail: nil,
 		len:  0,
 	}
+}
+
+func (l *DoubleLinkedList) GetIterator(startFromTail bool) *DoubleLinkedListIterator {
+	iterator := &DoubleLinkedListIterator{
+		next:          nil,
+		startFromTail: startFromTail,
+	}
+	if startFromTail {
+		iterator.next = l.tail
+		return iterator
+	}
+	iterator.next = l.head
+	return iterator
+}
+
+func (i *DoubleLinkedListIterator) HasNext() bool {
+	return i.next != nil
+}
+
+func (i *DoubleLinkedListIterator) Next() interface{} {
+	value := i.next.value
+	if i.startFromTail {
+		i.next = i.next.pre
+		return value
+	}
+	i.next = i.next.next
+	return value
 }
 
 // 删除所有元素
@@ -170,11 +202,7 @@ func (l *DoubleLinkedList) Join(list *DoubleLinkedList) {
 }
 
 func (l *DoubleLinkedList) Duplicate() *DoubleLinkedList {
-	copy := &DoubleLinkedList{
-		head: nil,
-		tail: nil,
-		len:  0,
-	}
+	copy := NewDoubleLinkedList()
 
 	p := l.head
 	for p != nil {

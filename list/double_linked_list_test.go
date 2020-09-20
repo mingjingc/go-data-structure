@@ -5,7 +5,7 @@ import (
 )
 
 func TestDoubleLinkedList(t *testing.T) {
-	l := &DoubleLinkedList{}
+	l := NewDoubleLinkedList()
 	initData := []int{1, 2, 3, 4}
 	length := len(initData)
 	for _, v := range initData {
@@ -13,6 +13,16 @@ func TestDoubleLinkedList(t *testing.T) {
 	}
 	if l.len != len(initData) {
 		t.Errorf("expect length %d bug got %d", len(initData), l.len)
+	}
+
+	iterator := l.GetIterator(false)
+	i := 0
+	for iterator.HasNext() {
+		value := iterator.Next()
+		if value != initData[i] {
+			t.Errorf("iterator value expect %d, but got %d", initData[i], value)
+		}
+		i++
 	}
 
 	node := l.Index(0)
@@ -90,4 +100,5 @@ func TestDoubleLinkedList(t *testing.T) {
 		p1 = p1.next
 		p2 = p2.next
 	}
+
 }
