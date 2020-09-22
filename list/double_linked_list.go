@@ -52,7 +52,7 @@ func (i *DoubleLinkedListIterator) Next() interface{} {
 	return value
 }
 
-// 删除所有元素
+// delete all
 func (l *DoubleLinkedList) listEmpty() {
 	l.tail = nil
 	l.head = nil
@@ -203,7 +203,7 @@ func (l *DoubleLinkedList) GetLen() int {
 	return l.len
 }
 
-// 旋转一个单位
+// Rotate tail to head
 func (l *DoubleLinkedList) Rotate() {
 	if l.len < 2 {
 		return
