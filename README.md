@@ -7,10 +7,10 @@ Golang implements data structure
 - [ ] Trie
 - [ ] Red Black Treee
 - [x] RLU Cache
-- [ ] Hash Map
-- [ ] Bit Set
-- [ ] Circle Queue
-- [ ] Sort: Merge, 
+- [x] Hash Map
+- [x] Bit Set
+- [x] Circular Queue
+- [x] Sort: Merge, 
 - [x] Sort: Quick
 - [x] Sort: Insertion
 - [ ] Sort: Gnome
