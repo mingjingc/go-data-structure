@@ -3,8 +3,9 @@ Golang implements data structure
 ## To Do List
 
 - [x] Double Linked List
+- [x] Skip List
 - [x] Radix Tree
-- [ ] Trie
+- [x] Trie
 - [ ] Red Black Treee
 - [x] RLU Cache
 - [x] Hash Map
