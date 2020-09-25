@@ -17,6 +17,7 @@ Golang implements data structure
 - [ ] Sort: Gnome
 - [ ] Sort: Cocktail
 - [ ] Sort: Counting
+- [x] Search: Binary
   
 ## Welcome To Join
 
