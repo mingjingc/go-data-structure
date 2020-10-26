@@ -11,6 +11,7 @@ Golang implements data structure
 - [x] Hash Map
 - [x] Bit Set
 - [x] Circular Queue
+- [x] Priority Queue
 - [x] Sort: Merge, 
 - [x] Sort: Quick
 - [x] Sort: Insertion
