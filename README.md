@@ -15,6 +15,7 @@ Golang implements data structure
 - [x] Sort: Merge, 
 - [x] Sort: Quick
 - [x] Sort: Insertion
+- [x] Sort: Heap
 - [ ] Sort: Gnome
 - [ ] Sort: Cocktail
 - [ ] Sort: Counting
