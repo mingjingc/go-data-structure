@@ -4,12 +4,20 @@ type Stack struct {
 	data []ElementType
 }
 
+func New() *Stack {
+	return &Stack{}
+}
+
 func (s *Stack) IsEmpty() bool {
 	return len(s.data) == 0
 }
 
 func (s *Stack) Clear() {
 	s.data = s.data[:0]
+}
+
+func (s *Stack) Len() int {
+	return len(s.data)
 }
 
 func (s *Stack) Push(e ElementType) {
