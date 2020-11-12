@@ -1,32 +1,32 @@
 package list
 
-type DoubleLinkedListNode struct {
-	pre   *DoubleLinkedListNode
-	next  *DoubleLinkedListNode
+type Node struct {
+	pre   *Node
+	next  *Node
 	Value interface{}
 }
 
-type DoubleLinkedList struct {
-	head *DoubleLinkedListNode
-	tail *DoubleLinkedListNode
+type LinkedList struct {
+	head *Node
+	tail *Node
 	len  int
 }
 
-type DoubleLinkedListIterator struct {
-	next          *DoubleLinkedListNode
+type LinkedListIterator struct {
+	next          *Node
 	startFromTail bool
 }
 
-func NewDoubleLinkedList() *DoubleLinkedList {
-	return &DoubleLinkedList{
+func New() *LinkedList {
+	return &LinkedList{
 		head: nil,
 		tail: nil,
 		len:  0,
 	}
 }
 
-func (l *DoubleLinkedList) GetIterator(startFromTail bool) *DoubleLinkedListIterator {
-	iterator := &DoubleLinkedListIterator{
+func (l *LinkedList) GetIterator(startFromTail bool) Iterator {
+	iterator := &LinkedListIterator{
 		next:          nil,
 		startFromTail: startFromTail,
 	}
@@ -38,11 +38,11 @@ func (l *DoubleLinkedList) GetIterator(startFromTail bool) *DoubleLinkedListIter
 	return iterator
 }
 
-func (i *DoubleLinkedListIterator) HasNext() bool {
+func (i *LinkedListIterator) HasNext() bool {
 	return i.next != nil
 }
 
-func (i *DoubleLinkedListIterator) Next() interface{} {
+func (i *LinkedListIterator) Next() interface{} {
 	value := i.next.Value
 	if i.startFromTail {
 		i.next = i.next.pre
@@ -53,14 +53,14 @@ func (i *DoubleLinkedListIterator) Next() interface{} {
 }
 
 // delete all
-func (l *DoubleLinkedList) listEmpty() {
+func (l *LinkedList) listEmpty() {
 	l.tail = nil
 	l.head = nil
 	l.len = 0
 }
 
-func (l *DoubleLinkedList) AddNodeHead(value interface{}) {
-	node := &DoubleLinkedListNode{
+func (l *LinkedList) AddNodeHead(value interface{}) {
+	node := &Node{
 		pre:   nil,
 		next:  nil,
 		Value: value,
@@ -77,8 +77,8 @@ func (l *DoubleLinkedList) AddNodeHead(value interface{}) {
 	l.head = node
 	l.len++
 }
-func (l *DoubleLinkedList) AddNodeTail(value interface{}) {
-	node := &DoubleLinkedListNode{
+func (l *LinkedList) AddNodeTail(value interface{}) {
+	node := &Node{
 		pre:   nil,
 		next:  nil,
 		Value: value,
@@ -95,8 +95,8 @@ func (l *DoubleLinkedList) AddNodeTail(value interface{}) {
 	l.tail = node
 	l.len++
 }
-func (l *DoubleLinkedList) InsertNode(oldNode *DoubleLinkedListNode, value interface{}, after bool) {
-	node := &DoubleLinkedListNode{
+func (l *LinkedList) InsertNode(oldNode *Node, value interface{}, after bool) {
+	node := &Node{
 		pre:   nil,
 		next:  nil,
 		Value: value,
@@ -125,7 +125,7 @@ func (l *DoubleLinkedList) InsertNode(oldNode *DoubleLinkedListNode, value inter
 	l.len++
 }
 
-func (l *DoubleLinkedList) MoveToHead(node *DoubleLinkedListNode) {
+func (l *LinkedList) MoveToHead(node *Node) {
 	if node == l.head {
 		return
 	}
@@ -142,7 +142,7 @@ func (l *DoubleLinkedList) MoveToHead(node *DoubleLinkedListNode) {
 	l.head = node
 }
 
-func (l *DoubleLinkedList) DeleteNode(node *DoubleLinkedListNode) {
+func (l *LinkedList) DeleteNode(node *Node) {
 	if node == l.head && l.len == 1 {
 		l.head = nil
 		l.tail = nil
@@ -165,8 +165,8 @@ func (l *DoubleLinkedList) DeleteNode(node *DoubleLinkedListNode) {
 
 // index为非负数，0表示头
 // index为负数，-1表示尾
-func (l *DoubleLinkedList) Index(index int) *DoubleLinkedListNode {
-	var node *DoubleLinkedListNode
+func (l *LinkedList) Index(index int) *Node {
+	var node *Node
 	if index >= 0 {
 		p := l.head
 		for p != nil {
@@ -191,20 +191,20 @@ func (l *DoubleLinkedList) Index(index int) *DoubleLinkedListNode {
 	return node
 }
 
-func (l *DoubleLinkedList) GetHead() *DoubleLinkedListNode {
+func (l *LinkedList) GetHead() *Node {
 	return l.Index(0)
 }
 
-func (l *DoubleLinkedList) GetTail() *DoubleLinkedListNode {
+func (l *LinkedList) GetTail() *Node {
 	return l.Index(-1)
 }
 
-func (l *DoubleLinkedList) GetLen() int {
+func (l *LinkedList) GetLen() int {
 	return l.len
 }
 
 // Rotate tail to head
-func (l *DoubleLinkedList) Rotate() {
+func (l *LinkedList) Rotate() {
 	if l.len < 2 {
 		return
 	}
@@ -218,7 +218,7 @@ func (l *DoubleLinkedList) Rotate() {
 	l.head = node
 }
 
-func (l *DoubleLinkedList) Join(list *DoubleLinkedList) {
+func (l *LinkedList) Join(list *LinkedList) {
 	if l.len == 0 {
 		l.tail = list.tail
 		l.head = list.head
@@ -230,8 +230,8 @@ func (l *DoubleLinkedList) Join(list *DoubleLinkedList) {
 	l.tail = list.tail
 }
 
-func (l *DoubleLinkedList) Duplicate() *DoubleLinkedList {
-	copy := NewDoubleLinkedList()
+func (l *LinkedList) Duplicate() *LinkedList {
+	copy := New()
 
 	p := l.head
 	for p != nil {

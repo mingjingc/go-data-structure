@@ -10,15 +10,15 @@ type entry struct {
 }
 
 type LRUCache struct {
-	cache    map[int]*list.DoubleLinkedListNode
-	list     *list.DoubleLinkedList
+	cache    map[int]*list.Node
+	list     *list.LinkedList
 	capacity int
 }
 
 func NewLRUCache(capacity int) *LRUCache {
 	return &LRUCache{
-		cache:    map[int]*list.DoubleLinkedListNode{},
-		list:     list.NewDoubleLinkedList(),
+		cache:    map[int]*list.Node{},
+		list:     list.New(),
 		capacity: capacity,
 	}
 }
@@ -30,7 +30,7 @@ func (c *LRUCache) Get(key int) interface{} {
 	}
 	return node.Value.(*entry).value
 }
-func (c *LRUCache) get(key int) *list.DoubleLinkedListNode {
+func (c *LRUCache) get(key int) *list.Node {
 	node, ok := c.cache[key]
 	if !ok {
 		return nil

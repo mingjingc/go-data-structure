@@ -5,7 +5,7 @@ import (
 )
 
 func TestDoubleLinkedList(t *testing.T) {
-	l := NewDoubleLinkedList()
+	l := New()
 	initData := []int{1, 2, 3, 4}
 	length := len(initData)
 	for _, v := range initData {
@@ -85,12 +85,12 @@ func TestDoubleLinkedList(t *testing.T) {
 	node = l.tail
 	l.Rotate()
 	if node != l.head {
-		t.Error("DoubleLinkedList rotate fail")
+		t.Error("LinkedList rotate fail")
 	}
 
 	copy := l.Duplicate()
 	if copy.len != l.len {
-		t.Error("copy length not equal to DoubleLinkedList")
+		t.Error("copy length not equal to LinkedList")
 	}
 	p1, p2 := l.head, copy.head
 	for p1 != nil {

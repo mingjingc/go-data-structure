@@ -2,9 +2,9 @@ package stack
 
 type ElementType = int
 
-type IStack interface {
+type Stack interface {
 	IsEmpty() bool
-	Clear() bool
+	Clear()
 	Len() int
 	Pop() ElementType
 	Push(e ElementType)
